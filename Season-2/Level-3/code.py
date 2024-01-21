@@ -39,6 +39,11 @@ planet_data = {
 def index():
     if request.method == 'POST':
         planet = request.form.get('planet')
+
+        # Check if the input contains any HTML tags
+        if planet and re.search('<.*?>', planet):
+            return '<h2>Blocked</h2></p>'
+
         sanitized_planet = escape(planet) if planet else ''
 
         if sanitized_planet:
